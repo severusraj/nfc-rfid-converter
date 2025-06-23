@@ -51,7 +51,7 @@
                             <div class="result-label"><?php echo strpos($result, 'Error') === false ? 'Decimal ID' : 'Error'; ?></div>
                             <div class="result-value"><?php echo htmlspecialchars(str_replace(['Decimal ID: ', 'Error: '], '', $result)); ?></div>
                              <?php if (strpos($result, 'Error') === false): ?>
-                            <button class="copy-btn pulse-on-hover" onclick="copyToClipboard('<?php echo htmlspecialchars(str_replace('Decimal ID: ', '', $result)); ?>')">
+                            <button class="copy-btn pulse-on-hover" onclick="copyToClipboard('<?php echo htmlspecialchars(str_replace('Decimal ID: ', '', $result)); ?>', this)">
                                 <i class="fas fa-copy"></i><span class="copy-tooltip">Copy to clipboard</span>
                             </button>
                             <?php endif; ?>
@@ -148,12 +148,12 @@
             <div class="crypto-addresses" id="crypto-addresses" style="display: none;">
                 <div class="crypto-item">
                     <span class="crypto-label">Bitcoin:</span>
-                    <code class="crypto-address" onclick="copyToClipboard(this.textContent)">bc1qjmvh6yejezrxpek0e8rctqetez8nllmzv6ktnu</code>
+                    <code class="crypto-address" onclick="copyToClipboard(this.textContent, this)">bc1qjmvh6yejezrxpek0e8rctqetez8nllmzv6ktnu</code>
                     <i class="fas fa-copy crypto-copy"></i>
                 </div>
                 <div class="crypto-item">
                     <span class="crypto-label">Ethereum:</span>
-                    <code class="crypto-address" onclick="copyToClipboard(this.textContent)">0x476Eb9F5AB82F401c09Cdc991D8b39bd7ea7155C</code>
+                    <code class="crypto-address" onclick="copyToClipboard(this.textContent, this)">0x476Eb9F5AB82F401c09Cdc991D8b39bd7ea7155C</code>
                     <i class="fas fa-copy crypto-copy"></i>
                 </div>
             </div>

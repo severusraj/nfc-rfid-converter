@@ -15,11 +15,4 @@
     </svg>
 </div>
 
-<div class="theme-toggle">
-    <button id="theme-btn" class="theme-btn" aria-label="Toggle theme">
-        <i class="fas fa-moon"></i>
-        <span class="theme-tooltip">Toggle Theme</span>
-    </button>
-</div>
-
 <div class="background-pattern"></div> 

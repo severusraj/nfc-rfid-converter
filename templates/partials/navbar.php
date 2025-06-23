@@ -25,6 +25,10 @@
         </div>
         
         <div class="nav-actions">
+            <button class="theme-toggle-nav" id="theme-btn" aria-label="Toggle theme">
+                <i class="fas fa-moon theme-icon"></i>
+                <span class="theme-tooltip">Toggle Theme</span>
+            </button>
             <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>

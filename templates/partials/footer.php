@@ -24,7 +24,7 @@
             <div class="footer-section">
                 <h4>Resources</h4>
                 <ul class="footer-links">
-                    <li><a href="https://github.com/severusraj/nfc-rfid-converter/blob/main/README.md" target="_blank">Documentation</a></li>
+                    <li><a href="https://github.com/severusraj/nfc-rfid-converter/blob/master/README.md" target="_blank">Documentation</a></li>
                     <li><a href="https://github.com/severusraj/nfc-rfid-converter/issues" target="_blank">Report Bug</a></li>
                     <li><a href="https://github.com/severusraj/nfc-rfid-converter/issues" target="_blank">Feature Request</a></li>
                     <li><a href="#" class="modal-link" data-modal="privacy-modal">Privacy Policy</a></li>
