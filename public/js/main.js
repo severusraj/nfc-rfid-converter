@@ -129,6 +129,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('loaded');
     animateTitle();
     createFloatingParticles();
+
+    // Modal handling
+    document.querySelectorAll('.modal-link').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const id = link.dataset.modal;
+            const modal = document.getElementById(id);
+            if (modal) modal.style.display = 'flex';
+        });
+    });
+    document.querySelectorAll('.modal-close').forEach(btn => {
+        btn.addEventListener('click', () => btn.closest('.modal-overlay').style.display = 'none');
+    });
+    window.addEventListener('click', e => {
+        if (e.target.classList.contains('modal-overlay')) {
+            e.target.style.display = 'none';
+        }
+    });
 });
 
 function animateTitle() {

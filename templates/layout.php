@@ -32,6 +32,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
     <link rel="shortcut icon" href="/icons/favicon.ico">
+    <link rel="icon" href="/favicon.ico">
 
     <!-- Styles and Fonts -->
     <link rel="stylesheet" href="/css/style.css">
@@ -60,6 +61,24 @@
     <main class="main-content">
         <?php echo $content; ?>
     </main>
+
+    <!-- Privacy & Terms Modals -->
+    <div id="privacy-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-window">
+            <button class="modal-close" aria-label="Close privacy policy">&times;</button>
+            <h2>Privacy Policy</h2>
+            <p>We respect your privacy. All conversions are performed completely in your browser; no UID data is ever sent to our servers. If you install this app (PWA) it works entirely offline. We do not collect personal information, analytics, or tracking cookies. Any optional donations are processed by third-party providers (BuyMeACoffee, PayPal, or your crypto wallet) under their own privacy policies.</p>
+            <p>If you have questions, contact us at <a href="mailto:dev.ralph07@gmail.com">dev.ralph07@gmail.com</a>.</p>
+        </div>
+    </div>
+    <div id="terms-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-window">
+            <button class="modal-close" aria-label="Close terms of use">&times;</button>
+            <h2>Terms of Use</h2>
+            <p>This tool is provided "as-is" without warranties of any kind. By using it you acknowledge that conversions are for informational purposes only and you assume all responsibility for any use of the outputs. We are not liable for damages arising from use or inability to use the site. You may use the tool freely for personal or commercial projects, but you may not resell or re-host it without attribution.</p>
+            <p>Continued use of the site constitutes acceptance of these terms.</p>
+        </div>
+    </div>
 
     <?php include 'partials/footer.php'; ?>
     

@@ -5,9 +5,9 @@
                 <h4>NFC UID Converter</h4>
                 <p>A modern, offline-capable tool for converting NFC/RFID UIDs between hexadecimal and decimal formats.</p>
                 <div class="footer-social">
-                    <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="mailto:contact@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/severusraj" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/AngeloJaminal" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="mailto:dev.ralph07@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
             
@@ -24,10 +24,11 @@
             <div class="footer-section">
                 <h4>Resources</h4>
                 <ul class="footer-links">
-                    <li><a href="#" target="_blank">Documentation</a></li>
-                    <li><a href="#" target="_blank">Report Bug</a></li>
-                    <li><a href="#" target="_blank">Feature Request</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="https://github.com/severusraj/nfc-rfid-converter/blob/main/README.md" target="_blank">Documentation</a></li>
+                    <li><a href="https://github.com/severusraj/nfc-rfid-converter/issues" target="_blank">Report Bug</a></li>
+                    <li><a href="https://github.com/severusraj/nfc-rfid-converter/issues" target="_blank">Feature Request</a></li>
+                    <li><a href="#" class="modal-link" data-modal="privacy-modal">Privacy Policy</a></li>
+                    <li><a href="#" class="modal-link" data-modal="terms-modal">Terms of Use</a></li>
                 </ul>
             </div>
             

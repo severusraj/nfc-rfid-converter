@@ -141,19 +141,19 @@
         <div class="donate-content">
             <p class="donate-description">If this tool has been helpful to you, consider supporting its development and maintenance. Your support helps keep this tool free and continuously improved!</p>
             <div class="donate-options">
-                <a href="#" target="_blank" class="donate-btn coffee-btn"><i class="fas fa-coffee"></i><span>Buy me a coffee</span></a>
-                <a href="#" target="_blank" class="donate-btn paypal-btn"><i class="fab fa-paypal"></i><span>PayPal</span></a>
+                <a href="https://coff.ee/severusraj" target="_blank" class="donate-btn coffee-btn"><i class="fas fa-coffee"></i><span>Buy me a coffee</span></a>
+                <a href="https://paypal.me/angelojaminal" target="_blank" class="donate-btn paypal-btn"><i class="fab fa-paypal"></i><span>PayPal</span></a>
                 <button class="donate-btn crypto-btn" onclick="showCryptoAddresses()"><i class="fab fa-bitcoin"></i><span>Crypto</span></button>
             </div>
             <div class="crypto-addresses" id="crypto-addresses" style="display: none;">
                 <div class="crypto-item">
                     <span class="crypto-label">Bitcoin:</span>
-                    <code class="crypto-address" onclick="copyToClipboard(this.textContent)">bc1q...</code>
+                    <code class="crypto-address" onclick="copyToClipboard(this.textContent)">bc1qjmvh6yejezrxpek0e8rctqetez8nllmzv6ktnu</code>
                     <i class="fas fa-copy crypto-copy"></i>
                 </div>
                 <div class="crypto-item">
                     <span class="crypto-label">Ethereum:</span>
-                    <code class="crypto-address" onclick="copyToClipboard(this.textContent)">0x...</code>
+                    <code class="crypto-address" onclick="copyToClipboard(this.textContent)">0x476Eb9F5AB82F401c09Cdc991D8b39bd7ea7155C</code>
                     <i class="fas fa-copy crypto-copy"></i>
                 </div>
             </div>
