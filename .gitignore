@@ -1,0 +1,36 @@
+# ============================================
+#  PHP / Composer / Railway .gitignore
+# ============================================
+
+# Composer dependencies
+/vendor/
+
+# Environment & secrets
+.env
+.env.*
+
+# IDE & editor folders
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS / misc
+.DS_Store
+Thumbs.db
+
+# Logs & cache
+*.log
+cache/
+storage/
+
+# PHPUnit / code coverage
+coverage/
+.phpunit.result.cache
+
+# Build / artifacts
+public/build/
+/node_modules/
+
+# Railway build cache (if any)
+.build/ 
