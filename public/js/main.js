@@ -329,6 +329,44 @@ document.addEventListener('DOMContentLoaded', () => {
     animateTitle();
     createFloatingParticles();
     initializeResultAnimation();
+    initializeScrollAnimations();
+    addCustomScrollAnimations();
+    
+    // Reset button state on page load
+    resetButtonState();
+    
+    // Check if we have a result to animate
+    const resultContainer = document.querySelector('.result-section');
+    if (resultContainer) {
+        console.log('Result container found, initializing...');
+        
+        const resultCard = resultContainer.querySelector('.result-card');
+        if (resultCard) {
+            console.log('Result card found, showing with animations...');
+            
+            // Force the built-in animation to start
+            setTimeout(() => {
+                resultCard.style.animation = 'none';
+                resultCard.offsetHeight; // Force reflow
+                resultCard.style.animation = 'resultSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+            }, 100);
+            
+            // Start typing animation for the result value after card appears
+            setTimeout(() => {
+                const resultValue = resultContainer.querySelector('.result-value');
+                if (resultValue) {
+                    startTypingAnimation(resultValue);
+                }
+                
+                // Add success particles if it's a successful conversion
+                if (resultContainer.querySelector('.success-card')) {
+                    setTimeout(() => {
+                        createSuccessParticles(resultContainer);
+                    }, 500);
+                }
+            }, 400);
+        }
+    }
 
     // Modal handling
     document.querySelectorAll('.modal-link').forEach(link => {
@@ -346,6 +384,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('modal-overlay')) {
             e.target.style.display = 'none';
         }
+    });
+
+    // PWA Install Prompt Listener
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Log that the browser is ready to install. This is the key event.
+        console.log('✅ SUCCESS: PWA is installable. The "beforeinstallprompt" event was fired.');
+        console.log('The browser should now be showing an install icon in the URL bar.');
+        // Don't prevent default, let the browser show its own install UI
+    });
+
+    window.addEventListener('appinstalled', () => {
+        console.log('🎉 SUCCESS: PWA was installed.');
     });
 });
 
@@ -420,6 +470,26 @@ function handleFormSubmission(e) {
     const convertBtn = document.getElementById('convert-btn');
     const btnText = convertBtn.querySelector('.btn-text');
     const btnLoader = convertBtn.querySelector('.btn-loader');
+    const hexInput = document.getElementById('hex_uid');
+    
+    console.log('Form submission started');
+    console.log('Hex input value:', hexInput.value);
+    
+    // Validate input before submission
+    if (!hexInput.value.trim()) {
+        e.preventDefault();
+        hexInput.focus();
+        showValidation(false, 'Please enter a hexadecimal UID');
+        return;
+    }
+    
+    // Validate hex format
+    const cleanHex = hexInput.value.replace(/[^0-9A-Fa-f]/g, '');
+    if (cleanHex.length < 8 || cleanHex.length % 2 !== 0) {
+        e.preventDefault();
+        showValidation(false, 'Please enter a valid hexadecimal UID (at least 4 bytes)');
+        return;
+    }
     
     // Add loading state
     convertBtn.classList.add('loading');
@@ -432,7 +502,22 @@ function handleFormSubmission(e) {
         existingResult.style.transform = 'translateY(-20px)';
     }
     
+    // Store form submission state
+    sessionStorage.setItem('formSubmitted', 'true');
+    
+    console.log('Form will submit normally');
     // The form will submit normally, but we've added visual feedback
+}
+
+function resetButtonState() {
+    const convertBtn = document.getElementById('convert-btn');
+    if (convertBtn) {
+        convertBtn.classList.remove('loading');
+        convertBtn.disabled = false;
+    }
+    
+    // Clear form submission state
+    sessionStorage.removeItem('formSubmitted');
 }
 
 function createSuccessParticles(element) {
@@ -458,4 +543,128 @@ function createSuccessParticles(element) {
         
         setTimeout(() => particle.remove(), 3000);
     }
+}
+
+// Enhanced Scroll Animation System
+function initializeScrollAnimations() {
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    // Initialize AOS (Animate On Scroll) system
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const delay = element.dataset.aosDelay || 0;
+                
+                setTimeout(() => {
+                    element.classList.add('aos-animate');
+                }, parseInt(delay));
+                
+                // Stop observing once animated
+                observer.unobserve(element);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all elements with data-aos attribute (except result sections)
+    document.querySelectorAll('[data-aos]').forEach(element => {
+        // Skip result sections and their children
+        if (!element.closest('.result-section') && !element.classList.contains('result-section')) {
+            observer.observe(element);
+        }
+    });
+
+    // Auto-add animations to common elements if not manually specified
+    autoAddScrollAnimations();
+}
+
+function autoAddScrollAnimations() {
+    // Add animations to section titles (but skip result sections)
+    document.querySelectorAll('.section-title').forEach((title, index) => {
+        if (!title.hasAttribute('data-aos') && !title.closest('.result-section')) {
+            title.setAttribute('data-aos', 'fade-up');
+            title.setAttribute('data-aos-delay', (index * 100).toString());
+        }
+    });
+
+    // Add animations to cards with staggered timing
+    document.querySelectorAll('.about-card').forEach((card, index) => {
+        if (!card.hasAttribute('data-aos')) {
+            card.setAttribute('data-aos', 'card-lift');
+            card.setAttribute('data-aos-delay', (index * 150).toString());
+        }
+    });
+
+    document.querySelectorAll('.feature-item').forEach((item, index) => {
+        if (!item.hasAttribute('data-aos')) {
+            item.setAttribute('data-aos', 'fade-left');
+            item.setAttribute('data-aos-delay', (index * 100).toString());
+        }
+    });
+
+    // Add animations to info section
+    const infoCard = document.querySelector('.info-card');
+    if (infoCard && !infoCard.hasAttribute('data-aos')) {
+        infoCard.setAttribute('data-aos', 'zoom-in');
+    }
+
+    // Add animations to examples
+    document.querySelectorAll('.example-item').forEach((item, index) => {
+        if (!item.hasAttribute('data-aos')) {
+            item.setAttribute('data-aos', 'flip-up');
+            item.setAttribute('data-aos-delay', (index * 200).toString());
+        }
+    });
+
+    // Add animations to donate section
+    const donateDescription = document.querySelector('.donate-description');
+    if (donateDescription && !donateDescription.hasAttribute('data-aos')) {
+        donateDescription.setAttribute('data-aos', 'fade-up');
+    }
+
+    document.querySelectorAll('.donate-btn').forEach((btn, index) => {
+        if (!btn.hasAttribute('data-aos')) {
+            btn.setAttribute('data-aos', 'bounce-in');
+            btn.setAttribute('data-aos-delay', (index * 150).toString());
+        }
+    });
+}
+
+// Custom scroll animations for specific elements
+function addCustomScrollAnimations() {
+    // Animate navbar on scroll
+    let lastScrollY = window.scrollY;
+    
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        const navbar = document.querySelector('.navbar');
+        
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolling down - hide navbar
+            navbar.style.transform = 'translateY(-100%)';
+        } else {
+            // Scrolling up - show navbar
+            navbar.style.transform = 'translateY(0)';
+        }
+        
+        lastScrollY = currentScrollY;
+    });
+
+    // Parallax effect for background elements
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.background-pattern, .wave-container');
+        
+        parallaxElements.forEach(element => {
+            const speed = 0.5;
+            element.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
 } 

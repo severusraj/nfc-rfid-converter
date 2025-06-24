@@ -1,14 +1,17 @@
-const CACHE_NAME = 'nfc-uid-converter-v1';
+const CACHE_NAME = 'nfc-converter-cache-v2';
 
-// Files to precache for offline use
+// Files to precache for offline use (excluding dynamic pages)
 const ASSETS_TO_CACHE = [
-  './',
-  './index.php',
-  './style.css',
+  './css/style.css',
+  './js/main.js',
   './manifest.json',
-  // Icons (placeholders – supply your own icons in /icons)
+  './icons/favicon-16x16.png',
+  './icons/favicon-32x32.png',
+  './icons/apple-touch-icon.png',
   './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icons/icon-512.png',
+  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];
 
 self.addEventListener('install', event => {
@@ -28,23 +31,30 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  // Only handle GET requests
-  if (event.request.method !== 'GET') return;
+  const { request } = event;
 
+  // --- Caching Strategy ---
+
+  // 1. Never cache POST requests
+  if (request.method !== 'GET') {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  // 2. For other GET requests, try network first, then cache
   event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      if (cachedResponse) {
-        return cachedResponse; // Serve from cache first
+    fetch(request).then(response => {
+      // If the network request is successful, cache it and return it
+      if (response && response.status === 200) {
+        const responseToCache = response.clone();
+        caches.open(CACHE_NAME).then(cache => {
+          cache.put(request, responseToCache);
+        });
       }
-      return fetch(event.request)
-        .then(networkResponse => {
-          // Cache the new resource for future requests
-          return caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
-        })
-        .catch(() => caches.match('./'));
+      return response;
+    }).catch(() => {
+      // If the network request fails, try to get it from the cache
+      return caches.match(request);
     })
   );
 }); 

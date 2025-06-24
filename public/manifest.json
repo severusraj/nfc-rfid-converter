@@ -1,21 +1,73 @@
 {
-  "name": "NFC UID Converter",
+  "name": "NFC UID Converter App",
   "short_name": "UID Converter",
   "description": "Convert NFC/RFID hexadecimal UIDs to decimal format, even offline.",
-  "start_url": "./index.php",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
   "background_color": "#f8fafc",
   "theme_color": "#3b82f6",
+  "categories": ["utilities", "developer", "productivity"],
+  "prefer_related_applications": false,
   "icons": [
+    {
+      "src": "icons/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
     {
       "src": "icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "NFC UID Converter Desktop View"
+    },
+    {
+      "src": "icons/screenshot-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "NFC UID Converter Mobile View"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Quick Convert",
+      "short_name": "Convert",
+      "description": "Quickly convert NFC UID",
+      "url": "./",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 } 
